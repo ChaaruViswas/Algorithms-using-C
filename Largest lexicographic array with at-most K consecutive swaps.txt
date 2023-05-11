@@ -1,0 +1,43 @@
+//Largest lexicographic array with at-most K consecutive swaps
+
+#include <stdio.h>
+ 
+void KSwapMax(int arr[],int n,int k)
+{
+    for (int i=0;i<n-1&&k>0;i++)
+    {
+        int ind=i;
+        for (int j=i+1;j<n;j++)
+        {
+            if (k<=j-i)
+                break;
+            if (arr[j]>arr[ind])
+                ind=j;
+        }
+        for (int j=ind;j>i;j++)
+        {
+            int t=arr[j];
+            arr[j]=arr[j-1];
+            arr[j-1]=t;
+        }
+        k-=ind-i;
+    }
+}
+ 
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    int k;
+    scanf("%d",&k);
+    KSwapMax(arr, n, k);
+    for (int i=0;i<n;i++)
+    {
+        printf("%d",arr[i]);
+    }
+}
